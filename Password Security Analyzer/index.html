@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛡️ Password Security Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div id="particles-container"></div>
+    
+    <!-- Main Application Container -->
+    <div class="app-container">
+        
+        <!-- ========== HEADER ========== -->
+        <header class="header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-shield">🛡️</span>
+                    <div class="logo-text">
+                        <span class="brand-name">Password Security Analyzer</span>
+                        <span class="brand-tagline">Security Division</span>
+                    </div>
+                </div>
+                <div class="header-badge">
+                    <span class="badge-dot"></span>
+                    <span class="badge-text">SYSTEM </span>
+                    <span class="badge-batch">ACTIVE</span>
+                </div>
+            </div>
+            <div class="header-right">
+            <button id="themeToggle" class="theme-toggle" title="Toggle Dark/Light Mode">🌙</button>    
+                <div class="clock" id="clock">00:00:00</div>
+                <div class="session-info">
+                    <span>Session: <strong id="sessionCount">00:00</strong></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ========== MAIN CONTENT ========== -->
+        <div class="main-content">
+            
+            <!-- ===== LEFT PANEL: Input ===== -->
+            <div class="panel input-panel">
+                <div class="panel-title">
+                    <h2>🔑 ACCESS AUTHENTICATION</h2>
+                    <div class="title-line"></div>
+                </div>
+                
+                <div class="input-section">
+                    <div class="password-field">
+                        <label class="field-label">Enter Password</label>
+                        <div class="input-wrapper">
+                            <input type="password" id="passwordInput" class="password-input" placeholder="•••••••••••••" autocomplete="off">
+                            <button id="toggleVisibility" class="toggle-btn" aria-label="Toggle visibility">
+                                👁️
+                            </button>
+                        </div>
+                        <div class="input-stats">
+                            <span id="charCount">0 characters</span>
+                            <span>🔒 End-to-end encrypted</span>
+                        </div>
+                    </div>
+                                        <!-- ADD THIS SECTION -->
+                    <div class="password-options">
+                        <label for="passLength">Generator Password Length : <span id="lengthVal">16</span></label>
+                        <input type="range" id="passLength" min="8" max="32" value="16">
+                        <div class="option-toggles">
+                            <label><input type="checkbox" id="optUpper" checked> Uppercase</label>
+                            <label><input type="checkbox" id="optLower" checked> Lowercase</label>
+                            <label><input type="checkbox" id="optDigits" checked> Digits</label>
+                            <label><input type="checkbox" id="optSpecial" checked> Special</label>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button id="analyzeBtn" class="btn btn-analyze">
+                            <span>⚡</span> ANALYZE
+                        </button>
+                        <button id="generateBtn" class="btn btn-generate">
+                            <span>🎲</span> GENERATE
+                        </button>
+                        <button id="clearBtn" class="btn btn-clear">
+                            <span>✖</span> CLEAR
+                        </button>
+                    </div>
+                </div>
+<!-- Add after quick-stats -->
+<!-- Recommendations Section -->
+<div class="tips-section">
+    <div class="tips-header">❗ Recommendations</div>
+    <ul class="tips-list" id="tipsList">
+        <li>◆ Use at least 8 characters</li>
+        <li>◆ Mix uppercase & lowercase (Aa-Zz)</li>
+        <li>◆ Add special characters (!@#$%^&*)</li>
+        <li>◆ Make your password longer and more complex</li>
+    </ul>
+</div>
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-card">
+                        <span class="stat-label">Total Scans</span>
+                        <span class="stat-value" id="totalScans">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Strong Passwords</span>
+                        <span class="stat-value" id="strongCount">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label">Security Level</span>
+                        <span class="stat-value" id="securityLevel">🔓</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== RIGHT PANEL: Results ===== -->
+            <div class="panel results-panel">
+                <div class="panel-title">
+                    <h2>📊 SECURITY ANALYSIS</h2>
+                    <div class="title-line"></div>
+                </div>
+                
+                <div id="resultsContainer" class="results-container">
+                    <!-- Initial State -->
+                    <div id="initialState" class="state-initial">
+                        <div class="state-icon">🔐</div>
+                        <h3>Waiting Authentication</h3>
+                        <p class="initial-subtitle">Enter a password and click ANALYZE</p>
+                        <div class="scanning-line"></div>
+                    </div>
+                    
+                    <!-- Results Content -->
+                    <div id="resultsContent" class="results-content" style="display: none;">
+                        
+                        <!-- Rating Section -->
+                        <div class="rating-section">
+                            <div class="rating-circle-wrapper">
+                                <div class="rating-circle" id="ratingCircle">
+                                    <svg viewBox="0 0 120 120">
+                                        <circle cx="60" cy="60" r="50" fill="none" stroke="#1a1a3e" stroke-width="8"/>
+                                        <circle cx="60" cy="60" r="50" fill="none" stroke="#00ff88" stroke-width="8" 
+                                                stroke-dasharray="314.159" stroke-dashoffset="314.159" 
+                                                id="ratingArc" stroke-linecap="round"/>
+                                    </svg>
+                                    <div class="rating-center">
+                                        <span class="rating-score-number" id="scoreNumber">0</span>
+                                        <span class="rating-label">SCORE</span>
+                                    </div>
+                                </div>
+                                <div class="rating-info">
+                                    <div class="rating-status" id="ratingStatus">
+                                        <span class="status-value" id="ratingValue">WAITING</span>
+                                    
+                                    </div>
+                                    <div class="rating-feedback">
+                                        <span id="feedbackText">Enter a password and click ANALYZE</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Metrics Grid -->
+                        <div class="metrics-grid">
+                            <div class="metric">
+                                <div class="metric-icon">🎲</div>
+                                <div class="metric-details">
+                                    <span class="metric-label">Entropy</span>
+                                    <span class="metric-value" id="entropyValue">-- bits</span>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-icon">📏</div>
+                                <div class="metric-details">
+                                    <span class="metric-label">Length</span>
+                                    <span class="metric-value" id="lengthValue">-- chars</span>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-icon">🧩</div>
+                                <div class="metric-details">
+                                    <span class="metric-label">Character Types</span>
+                                    <span class="metric-value" id="charTypesValue">0/4</span>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-icon">🛡️</div>
+                                <div class="metric-details">
+                                    <span class="metric-label">Breach Status</span>
+                                    <span class="metric-value" id="breachValue">✅ Safe</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Character Type Indicators -->
+                        <div class="char-indicators">
+                            <div class="char-item" id="charUpper">
+                                <span class="char-icon">⬆</span>
+                                <span class="char-name">Uppercase</span>
+                                <span class="char-status">❌</span>
+                            </div>
+                            <div class="char-item" id="charLower">
+                                <span class="char-icon">⬇</span>
+                                <span class="char-name">Lowercase</span>
+                                <span class="char-status">❌</span>
+                            </div>
+                            <div class="char-item" id="charDigit">
+                                <span class="char-icon">🔢</span>
+                                <span class="char-name">Digits</span>
+                                <span class="char-status">❌</span>
+                            </div>
+                            <div class="char-item" id="charSpecial">
+                                <span class="char-icon">!@#</span>
+                                <span class="char-name">Special</span>
+                                <span class="char-status">❌</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Feedback & Recommendations -->
+                        <div class="feedback-section">
+                            <div class="feedback-header">
+                                <span>💬 Security Feedback</span>
+                            </div>
+                            <div class="feedback-body" id="feedbackBody">
+                                Awaiting analysis...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+       
+      <!-- ========== FOOTER ========== -->
+        <footer class="footer"> 
+            <div class="footer-content">
+        
+               
+                <span>🔐 Defensive Logic Track</span>
+                <span class="footer-divider">|</span>
+                <span>© 2026 All Rights Reserved</span>
+                <span class="footer-divider">|</span>
+                <span class="footer-version">v3.0.0</span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
