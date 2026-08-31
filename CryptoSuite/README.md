@@ -50,14 +50,14 @@ The application features a **real-time dashboard**, **historical logging**, **da
 
 ### 📊 Statistics & Analytics
 <p align="center">
-  <img src="screenshots/statistics.png" alt="Statistics Page" width="800"/>
+  <img src="Statistics.png" alt="Statistics Page" width="800"/>
 </p>
 
 ---
 
 # ✨ Key Features
 
-- 🔐 **Multiple Encryption Techniques:** Caesar Cipher, Vigenère Cipher, and Hybrid Encryption (Two-layer security).
+- 🔐 **Multiple Encryption Techniques:** Caesar Cipher, Vigenère Cipher, and Hybrid Encryption.
 - 🔓 **Brute Force Attack Simulation:** Crack Caesar cipher using frequency analysis.
 - 📊 **Real-Time Dashboard:** Total operations, success rate, method distribution, and system health monitoring.
 - 📈 **Advanced Analytics:** Method breakdown, distribution charts, and operations timeline.
@@ -94,8 +94,10 @@ The application features a **real-time dashboard**, **historical logging**, **da
 ```bash
 git clone https://github.com/warshia-rubab/CryptoSuite.git
 cd CryptoSuite
-Step 2: Create Virtual Environment
-bash
+```
+
+### Step 2: Create Virtual Environment
+```bash
 # Windows
 python -m venv venv
 venv\Scripts\activate
@@ -103,20 +105,29 @@ venv\Scripts\activate
 # Mac/Linux
 python3 -m venv venv
 source venv/bin/activate
-Step 3: Install Dependencies
-bash
+```
+
+### Step 3: Install Dependencies
+```bash
 pip install -r requirements.txt
-Step 4: Run the Application
-bash
+```
+
+### Step 4: Run the Application
+```bash
 cd backend
 python app.py
-Step 5: Open Browser
-text
+
+```
+
+### Step 5: Open Browser
+```text
 http://cryptosuite.com:5000
 Or use: http://localhost:5000
+```
+---
 
-📂 File Structure
-text
+# 📂 File Structure
+```text
 📁 CryptoSuite/
 │
 ├── 📁 backend/
@@ -145,22 +156,28 @@ text
 ├── 📄 requirements.txt            # Python Dependencies
 ├── 📄 README.md                   # Documentation
 └── 📄 .gitignore                  # Git Ignore Rules
-🔗 API Endpoints
-Endpoint	Method	Description
-/api/encrypt/caesar	POST	Caesar cipher encryption
-/api/encrypt/vigenere	POST	Vigenère cipher encryption
-/api/encrypt/hybrid	POST	Hybrid encryption
-/api/bruteforce	POST	Brute force attack simulation
-/api/history	GET	Retrieve encryption history
-/api/stats	GET	Retrieve statistical analysis
-/api/export	GET	Export logs as JSON
-📄 License
-This project is developed for educational and training purposes as part of the DecodeLabs Industrial Training Program (Batch 2026).
 
-It is licensed under the MIT License. This means you are free to use, modify, and distribute this software for personal or educational projects, provided that the original copyright notice and permission notice are included in all copies or substantial portions of the software.
+```
+---
 
-🛡️ Credits
-Organization: DecodeLabs
+# 🔗 API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/encrypt/caesar` | POST | Caesar cipher encryption |
+| `/api/encrypt/vigenere` | POST | Vigenère cipher encryption |
+| `/api/encrypt/hybrid` | POST | Hybrid encryption |
+| `/api/bruteforce` | POST | Brute force attack simulation |
+| `/api/history` | GET | Retrieve encryption history |
+| `/api/stats` | GET | Retrieve statistical analysis |
+| `/api/export` | GET | Export logs as JSON |
+
+---
+
+# 📄 License
+This project is developed for educational and training purposes as part of the DecodeLabs Industrial Training Program (Batch 2026). It is licensed under the MIT License. This means you are free to use, modify, and distribute this software for personal or educational projects, provided that the original copyright notice and permission notice are included in all copies or substantial portions of the software.
+
+# 🛡️ Credits
 
 Program: Industrial Training Program (Batch 2026)
 
@@ -170,4 +187,10 @@ Role: Cybersecurity Analyst
 
 Author: Warshia Rubab
 
-Disclaimer: This tool is intended for educational purposes only. It is designed to help users understand cryptographic principles and should not be used as a substitute for professional-grade enterprise security solutions.
+---
+
+# Disclaimer
+This tool is intended for educational purposes only. It is designed to help users understand cryptographic principles and should not be used as a substitute for professional-grade enterprise security solutions.
+
+---
+
