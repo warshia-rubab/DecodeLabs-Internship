@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoSuite - Security Suite</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+    <!-- ============================================
+    SIDEBAR
+    ============================================ -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <span>Crypto<span>Suite</span></span>
+            </div>
+            <button class="sidebar-toggle" id="sidebarToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-menu">
+            <div class="menu-label">Main</div>
+            <a href="#" class="menu-item active" data-page="dashboard">
+                <i class="fas fa-th-large"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="#" class="menu-item" data-page="caesar">
+                <i class="fas fa-lock"></i>
+                <span>Caesar Cipher</span>
+            </a>
+            <a href="#" class="menu-item" data-page="vigenere">
+                <i class="fas fa-key"></i>
+                <span>Vigenère Cipher</span>
+            </a>
+            <a href="#" class="menu-item" data-page="hybrid">
+                <i class="fas fa-layer-group"></i>
+                <span>Hybrid Encryption</span>
+            </a>
+            <a href="#" class="menu-item" data-page="bruteforce">
+                <i class="fas fa-bolt"></i>
+                <span>Brute Force</span>
+            </a>
+            
+            <div class="menu-label">Analysis</div>
+            <a href="#" class="menu-item" data-page="history">
+                <i class="fas fa-clock-rotate-left"></i>
+                <span>History</span>
+            </a>
+            <a href="#" class="menu-item" data-page="statistics">
+                <i class="fas fa-chart-bar"></i>
+                <span>Statistics</span>
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <div class="theme-toggle">
+                <i class="fas fa-sun"></i>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider round"></span>
+                </label>
+                <i class="fas fa-moon"></i>
+            </div>
+            <div class="version">
+                <i class="fas fa-code"></i>
+                <span>v2.0.0</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+    MAIN CONTENT
+    ============================================ -->
+    <main class="main-content">
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <h1 id="pageTitle">Dashboard</h1>
+                <span class="page-subtitle">Real-time encryption suite</span>
+            </div>
+            <div class="topbar-right">
+                <div class="status-badge">
+                    <span class="status-dot online"></span>
+                    <span>System Online</span>
+                </div>
+                <button class="btn-icon" id="refreshBtn" title="Refresh">
+                    <i class="fas fa-sync"></i>
+                </button>
+                <button class="btn-icon" id="exportBtn" title="Export Data">
+                    <i class="fas fa-download"></i>
+                </button>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Security+Analyst&background=0D9488&color=fff" alt="User">
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="page-content">
+<!-- ==========================================
+DASHBOARD PAGE - Updated with Histogram in Quick Stats
+========================================== -->
+<section id="page-dashboard" class="page active">
+    <!-- Dashboard Stats Grid -->
+    <div class="stats-grid">
+        <!-- Most Used Method -->
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #0D9488;">
+                <i class="fas fa-crown"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="mostUsedMethod">-</h3>
+                <p>Most Used Method</p>
+            </div>
+        </div>
+        
+        <!-- Total Unique Methods -->
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #2563EB;">
+                <i class="fas fa-layer-group"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="totalMethods">0</h3>
+                <p>Available Methods</p>
+            </div>
+        </div>
+        
+        <!-- Recent Activity Count -->
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #7C3AED;">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="recentCount">0</h3>
+                <p>Today's Operations</p>
+            </div>
+        </div>
+        
+        <!-- System Health -->
+        <div class="stat-card">
+            <div class="stat-icon" style="background: #22C55E;">
+                <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="stat-info">
+                <h3 id="systemHealth">100%</h3>
+                <p>System Health</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Two Column Layout for Dashboard -->
+    <div class="dashboard-grid">
+        <!-- Recent Activity Card -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                <span class="text-muted" id="lastOpTime">-</span>
+            </div>
+            <div class="card-body">
+                <div id="recentActivity">
+                    <p class="text-muted">No recent activity</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Stats Card with Histogram -->
+        <div class="card">
+            <div class="card-header">
+                <h3><i class="fas fa-chart-simple"></i> Quick Stats</h3>
+            </div>
+            <div class="card-body" style="display: flex; flex-direction: column; height: 100%; padding-bottom: 12px;">
+                <div id="quickStats" style="flex: 1;">
+                    <p class="text-muted">Loading stats...</p>
+                </div>
+                <!-- Histogram inside Quick Stats -->
+                <div style="margin-top: 4px; border-top: 1px solid var(--border-color); padding-top: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <span style="font-size: 12px; font-weight: 600; color: var(--text-secondary);">
+                            <i class="fas fa-chart-bar" style="color: var(--primary); margin-right: 4px;"></i>
+                            Method Frequency
+                        </span>
+                        <span style="font-size: 10px; color: var(--text-light);">Operations</span>
+                    </div>
+                    <div class="histogram-wrapper">
+                        <canvas id="histogramChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+            <!-- ==========================================
+            CAESAR CIPHER PAGE
+            ========================================== -->
+            <section id="page-caesar" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-lock"></i> Caesar Cipher Encryption</h3>
+                        <p class="text-muted">Shift letters by a fixed number</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Enter Text to Encrypt</label>
+                            <textarea id="caesarText" class="form-control" rows="3" placeholder="Type your message here...">Hello World!</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Shift Value</label>
+                            <div class="range-container">
+                                <input type="range" id="caesarShift" min="1" max="25" value="3">
+                                <span id="caesarShiftValue" class="range-value">3</span>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="encryptCaesar()">
+                                <i class="fas fa-lock"></i> Encrypt
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearFields('caesar')">
+                                <i class="fas fa-eraser"></i> Clear
+                            </button>
+                        </div>
+                        <div id="caesarResult" class="result-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+            VIGENERE CIPHER PAGE
+            ========================================== -->
+            <section id="page-vigenere" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-key"></i> Vigenère Cipher</h3>
+                        <p class="text-muted">Polyalphabetic substitution with key</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Enter Text to Encrypt</label>
+                            <textarea id="vigenereText" class="form-control" rows="3" placeholder="Type your message here...">Hello World!</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Encryption Key</label>
+                            <input type="text" id="vigenereKey" class="form-control" value="SECUREKEY" placeholder="Enter key">
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="encryptVigenere()">
+                                <i class="fas fa-lock"></i> Encrypt
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearFields('vigenere')">
+                                <i class="fas fa-eraser"></i> Clear
+                            </button>
+                        </div>
+                        <div id="vigenereResult" class="result-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+            HYBRID ENCRYPTION PAGE
+            ========================================== -->
+            <section id="page-hybrid" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-layer-group"></i> Hybrid Encryption</h3>
+                        <p class="text-muted">Two-layer encryption for maximum security</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Enter Text to Encrypt</label>
+                            <textarea id="hybridText" class="form-control" rows="3" placeholder="Type your message here...">Hello World!</textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Caesar Shift</label>
+                                <input type="number" id="hybridShift" class="form-control" value="3" min="1" max="25">
+                            </div>
+                            <div class="form-group">
+                                <label>Vigenère Key</label>
+                                <input type="text" id="hybridKey" class="form-control" value="SECUREKEY">
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn btn-primary" onclick="encryptHybrid()">
+                                <i class="fas fa-lock"></i> Encrypt
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearFields('hybrid')">
+                                <i class="fas fa-eraser"></i> Clear
+                            </button>
+                        </div>
+                        <div id="hybridResult" class="result-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+            BRUTE FORCE PAGE
+            ========================================== -->
+            <section id="page-bruteforce" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-bolt"></i> Brute Force Attack</h3>
+                        <p class="text-muted">Crack Caesar cipher with frequency analysis</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Enter Ciphertext to Crack</label>
+                            <textarea id="bruteforceText" class="form-control" rows="3" placeholder="Paste encrypted text here...">Khoor Zruog</textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="runBruteForce()">
+                            <i class="fas fa-bolt"></i> Crack It!
+                        </button>
+                        <div id="bruteforceResult" class="result-container"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+            HISTORY PAGE
+            ========================================== -->
+            <section id="page-history" class="page">
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-clock-rotate-left"></i> Encryption History</h3>
+                        <div>
+                            <button class="btn btn-sm btn-danger" onclick="clearHistory()">
+                                <i class="fas fa-trash"></i> Clear All
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="loadHistory()">
+                                <i class="fas fa-refresh"></i> Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="historyTable">
+                            <p class="text-muted">Loading history...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+            STATISTICS PAGE - Side by Side Layout
+            ========================================== -->
+            <section id="page-statistics" class="page">
+                <!-- Stats Analysis Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-bar"></i> Statistical Analysis</h3>
+                        <p class="text-muted">Comprehensive usage analytics</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="statsContainer">
+                            <p class="text-muted">Loading statistics...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Two Column Grid: Method Breakdown + Methods Distribution -->
+                <div class="statistics-grid">
+                    <!-- Method Breakdown Card (Left) -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-list"></i> Method Breakdown</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="methodBreakdown">
+                                <p class="text-muted">Loading...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Methods Distribution Chart Card (Right) -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-chart-pie"></i> Methods Distribution</h3>
+                        </div>
+                        <div class="card-body chart-card-body">
+                            <div class="chart-wrapper">
+                                <canvas id="methodsChart"></canvas>
+                            </div>
+                            <!-- Labels below chart -->
+                            <div class="chart-labels" id="chartLabels">
+                                <!-- Dynamically populated -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Operations Timeline Card (Full Width) -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-chart-line"></i> Operations Timeline</h3>
+                        <p class="text-muted">Encryption activity over time</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="timeline-wrapper">
+                            <canvas id="timelineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ============================================
+    TOAST NOTIFICATION
+    ============================================ -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ============================================
+    SCRIPTS
+    ============================================ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/encryption.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
